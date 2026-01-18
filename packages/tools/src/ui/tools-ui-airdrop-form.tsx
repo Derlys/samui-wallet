@@ -2,6 +2,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import type { Account } from '@workspace/db/account/account'
 import { solanaAddressSchema } from '@workspace/db/solana/solana-address-schema'
 import type { Wallet } from '@workspace/db/wallet/wallet'
+import { useTranslation } from '@workspace/i18n'
 import { Button } from '@workspace/ui/components/button'
 import {
   Form,
@@ -42,6 +43,7 @@ export function ToolsUiAirdropForm({
   submit: (input: AirdropFormSchema) => Promise<void>
   wallets: Wallet[]
 }) {
+  const { t } = useTranslation('tools')
   const form = useForm({
     resolver: standardSchemaResolver(formSchema),
     values: {
@@ -69,11 +71,11 @@ export function ToolsUiAirdropForm({
           name="address"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Address</FormLabel>
+              <FormLabel>{t(($) => $.address)}</FormLabel>
               <FormControl>
                 <Select name={field.name} onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a wallet" />
+                    <SelectValue placeholder={t(($) => $.airdropAddressSelect)} />
                   </SelectTrigger>
                   <SelectContent>
                     {wallets.map((wallet) => (
@@ -89,7 +91,7 @@ export function ToolsUiAirdropForm({
                   </SelectContent>
                 </Select>
               </FormControl>
-              <FormDescription>The public key of the account you want to airdrop to</FormDescription>
+              <FormDescription>{t(($) => $.address)}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -100,27 +102,27 @@ export function ToolsUiAirdropForm({
           name="amount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Amount</FormLabel>
+              <FormLabel>{t(($) => $.airdropAmountLabel)}</FormLabel>
               <FormControl>
                 <Input
                   autoComplete="off"
                   className="w-[200px]"
                   min="0"
-                  placeholder="Enter the amount of SOL to airdrop"
+                  placeholder={t(($) => $.airdropAmountPlaceholder)}
                   step="any"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
                 />
               </FormControl>
-              <FormDescription>Amount of SOL you want to airdrop</FormDescription>
+              <FormDescription>{t(($) => $.airdropAmountDescription)}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
         <Button disabled={disabled} type="submit">
-          Submit
+          {t(($) => $.actionSave)}
         </Button>
       </form>
     </Form>

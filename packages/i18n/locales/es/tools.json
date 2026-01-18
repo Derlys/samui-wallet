@@ -1,0 +1,23 @@
+{
+  "actionCreateToken": "Crear token",
+  "actionDone": "Hecho",
+  "actionSave": "Enviar",
+  "actionViewAccountToken": "Ver cuenta del token",
+  "actionViewMint": "Ver mint",
+  "actionViewSupplyTransaction": "Ver transacción de suministro",
+  "actionViewTransactionMint": "Ver transacción del mint",
+  "address": "Dirección",
+  "addressDescription": "La dirección del mint",
+  "addressLabel": "Dirección del mint",
+  "airdropAddressSelect": "Selecciona una billetera",
+  "airdropAmountDescription": "Cantidad de SOL que desea para el airdrop",
+  "airdropAmountLabel": "Monto",
+  "airdropAmountPlaceholder": "Ingrese la cantidad de SOL para airdrop",
+  "createdTokenTitle": "Token creado!",
+  "createTokenTitle": "Crear token",
+  "decimalsDescription": "Número de decimales del token",
+  "decimalsLabel": "Decimales",
+  "summaryTitle": "Resumen",
+  "supplyDescription": "Cantidad de tokens a mintear",
+  "supplyLabel": "Suministro del token"
+}

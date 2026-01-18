@@ -3,6 +3,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query'
 import type { Account } from '@workspace/db/account/account'
 import type { Network } from '@workspace/db/network/network'
 import { useAccountReadSecretKey } from '@workspace/db-react/use-account-read-secret-key'
+import { useTranslation } from '@workspace/i18n'
 import { createKeyPairSignerFromJson } from '@workspace/keypair/create-key-pair-signer-from-json'
 import { getNetworkLabel } from '@workspace/settings/ui/get-network-label'
 import { TOKEN_2022_PROGRAM_ADDRESS, TOKEN_PROGRAM_ADDRESS } from '@workspace/solana-client/constants'
@@ -38,6 +39,7 @@ export function queryKeypairQueryOptions() {
 }
 
 export default function ToolsFeatureCreateToken(props: { account: Account; network: Network }) {
+  const { t } = useTranslation('tools')
   const { pathname: from } = useLocation()
   const addressId = useId()
   const decimalsId = useId()
@@ -115,32 +117,32 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
   ])
 
   return (
-    <UiCard backButtonTo="/tools" title="Create Token">
+    <UiCard backButtonTo="/tools" title={t(($) => $.createTokenTitle)}>
       {resultMint && resultTx ? (
         <div className="flex flex-col gap-6">
-          <div>Token created!</div>
+          <div>{t(($) => $.createdTokenTitle)}</div>
           <div className="space-x-2">
             <Button asChild variant="secondary">
               <Link state={{ from }} to={`/explorer/address/${resultMint}`}>
-                View Mint
+                {t(($) => $.actionViewMint)}
               </Link>
             </Button>
             <Button asChild variant="secondary">
               <Link state={{ from }} to={`/explorer/tx/${resultTx}`}>
-                View Mint Transaction
+                {t(($) => $.actionViewTransactionMint)}
               </Link>
             </Button>
             {resultAta ? (
               <Button asChild variant="secondary">
                 <Link state={{ from }} to={`/explorer/address/${resultAta}`}>
-                  View Token Account
+                  {t(($) => $.actionViewAccountToken)}
                 </Link>
               </Button>
             ) : null}
             {resultSupply ? (
               <Button asChild variant="secondary">
                 <Link state={{ from }} to={`/explorer/tx/${resultSupply}`}>
-                  View Supply Transaction
+                  {t(($) => $.actionViewSupplyTransaction)}
                 </Link>
               </Button>
             ) : null}
@@ -155,15 +157,15 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
               }}
               variant="default"
             >
-              Done
+              {t(($) => $.actionDone)}
             </Button>
           </div>
         </div>
       ) : props.account.type === 'Derived' ? (
         <div className="flex flex-col gap-6">
           <Field>
-            <FieldLabel htmlFor={addressId}>Mint Address</FieldLabel>
-            <FieldDescription>The address of the mint</FieldDescription>
+            <FieldLabel htmlFor={addressId}>{t(($) => $.addressLabel)}</FieldLabel>
+            <FieldDescription>{t(($) => $.addressDescription)}</FieldDescription>
             <div className="flex items-center gap-2">
               <Input id={addressId} readOnly required value={queryKeypair.data?.address} />
               <Button onClick={() => queryKeypair.refetch()} size="icon" variant="outline">
@@ -173,8 +175,8 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
           </Field>
 
           <Field>
-            <FieldLabel htmlFor={decimalsId}>Decimals</FieldLabel>
-            <FieldDescription>The number of decimals for the token</FieldDescription>
+            <FieldLabel htmlFor={decimalsId}>{t(($) => $.decimalsLabel)}</FieldLabel>
+            <FieldDescription>{t(($) => $.decimalsDescription)}</FieldDescription>
             <Input
               id={decimalsId}
               max={9}
@@ -199,8 +201,8 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor={supplyId}>Mint Supply</FieldLabel>
-            <FieldDescription>The amount of tokens to mint after creation</FieldDescription>
+            <FieldLabel htmlFor={supplyId}>{t(($) => $.supplyLabel)}</FieldLabel>
+            <FieldDescription>{t(($) => $.supplyDescription)}</FieldDescription>
             <Input
               id={supplyId}
               min={0}
@@ -285,13 +287,17 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
 
           <Item variant="outline">
             <ItemContent>
-              <ItemTitle>Summary</ItemTitle>
+              <ItemTitle>{t(($) => $.summaryTitle)}</ItemTitle>
+              <ItemDescription className="font-mono">
+                {t(($) => $.decimalsLabel)}: {decimals}
+              </ItemDescription>
+              <ItemDescription className="font-mono">
+                {t(($) => $.supplyLabel)}: {supply}
+              </ItemDescription>
               <ItemDescription className="font-mono">Network: {getNetworkLabel(props.network.type)}</ItemDescription>
               <ItemDescription className="font-mono">
                 Owner: {ellipsify(props.account.publicKey, 6, '...')}
               </ItemDescription>
-              <ItemDescription className="font-mono">Decimals: {decimals}</ItemDescription>
-              <ItemDescription className="font-mono">Supply: {supply}</ItemDescription>
               <ItemDescription className="font-mono">
                 Token Program:{' '}
                 {tokenProgram === TOKEN_PROGRAM_ADDRESS
@@ -311,7 +317,7 @@ export default function ToolsFeatureCreateToken(props: { account: Account; netwo
           <ItemActions className="justify-end">
             <Button disabled={!queryKeypair.data || mutation.isPending} onClick={handleCreateToken}>
               {mutation.isPending ? <UiLoader className="size-4" /> : null}
-              Create Token
+              {t(($) => $.actionCreateToken)}
             </Button>
           </ItemActions>
         </div>

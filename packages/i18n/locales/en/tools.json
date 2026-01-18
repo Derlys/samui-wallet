@@ -1,0 +1,23 @@
+{
+  "actionCreateToken": "Create token",
+  "actionDone": "actionDone",
+  "actionSave": "Submit",
+  "actionViewAccountToken": "View token account",
+  "actionViewMint": "View mint",
+  "actionViewSupplyTransaction": "View supply transaction",
+  "actionViewTransactionMint": "View Mint Transaction",
+  "address": "Address",
+  "addressDescription": "The address of the mint",
+  "addressLabel": "Address mint",
+  "airdropAddressSelect": "Select a wallet",
+  "airdropAmountDescription": "Amount of SOL you want to airdrop",
+  "airdropAmountLabel": "Amount",
+  "airdropAmountPlaceholder": "Enter the amount of SOL to airdrop",
+  "createdTokenTitle": "Token created!",
+  "createTokenTitle": "Create token",
+  "decimalsDescription": "The number of decimals for the token",
+  "decimalsLabel": "Decimals",
+  "summaryTitle": "Summary",
+  "supplyDescription": "The amount of tokens to mint after creation",
+  "supplyLabel": "Mint supply"
+}

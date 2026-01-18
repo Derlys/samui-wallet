@@ -71,6 +71,7 @@ const config: CSpellSettings = {
     'wordlists',
     'worklets',
     // Spanish
+    'mintear',
     'mnemónica',
     'redirecciona',
   ],
